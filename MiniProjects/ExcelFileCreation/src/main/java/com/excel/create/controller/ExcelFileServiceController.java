@@ -1,11 +1,14 @@
 package com.excel.create.controller;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.excel.create.dto.OrderDTO;
 import com.excel.create.service.ExcelFileServiceInterface;
 
 @RestController
@@ -15,9 +18,10 @@ public class ExcelFileServiceController {
 	@Autowired
 	ExcelFileServiceInterface excelFileServiceInterface;
 	
-	@GetMapping
-	public String insertRecord() {
-		excelFileServiceInterface.insertRecord();
-		return "";
+	@PostMapping
+	public String insertRecord(@RequestBody OrderDTO orderDTO) {
+		orderDTO.setDateTime(LocalDateTime.now().toString());
+		System.out.println(orderDTO.getOrderID() + " " + orderDTO.getOrderName() + " " + orderDTO.getDateTime());
+		return excelFileServiceInterface.insertRecord(orderDTO);
 	}
 }

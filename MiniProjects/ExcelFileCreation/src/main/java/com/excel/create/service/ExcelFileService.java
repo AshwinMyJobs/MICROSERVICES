@@ -15,10 +15,12 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Service;
 
+import com.excel.create.dto.OrderDTO;
+
 @Service
 public class ExcelFileService implements ExcelFileServiceInterface{
 
-	
+	@Override
 	public void createExcelFile() throws FileNotFoundException, IOException{
 		
 		Workbook wb = new HSSFWorkbook();
@@ -27,11 +29,8 @@ public class ExcelFileService implements ExcelFileServiceInterface{
 
         Sheet sheet = wb.createSheet("Orders");
 
-        
-        // Create the header row
         Row headerRow = sheet.createRow(0);
 
-        // Create header cells and set values
         Cell cell1 = headerRow.createCell(0);
         cell1.setCellValue("OrderID");
 
@@ -45,42 +44,39 @@ public class ExcelFileService implements ExcelFileServiceInterface{
 
         wb.write(fileOut);
         fileOut.close();
-        
-        
-        
-        
-        //insertRecord();
+
 	}
 
 	@Override
-	public String insertRecord() {
+	public String insertRecord(OrderDTO orderDTO) {
 		
 		try {
 			FileInputStream inputFile = new FileInputStream(new File("Orders.xls"));
-			HSSFWorkbook workbook = new HSSFWorkbook(inputFile);
-		
-			FileOutputStream outPutFile = new FileOutputStream(new File("Orders.xls"));
-			
-			HSSFSheet sheet = workbook.getSheet("Orders");
-			int lastRowNum = sheet.getLastRowNum();
-			
-			Row newRow = sheet.createRow(lastRowNum + 1);
-			Cell cell1 = newRow.createCell(0);
-		    cell1.setCellValue("New Data 1");
+			try (HSSFWorkbook workbook = new HSSFWorkbook(inputFile)) {
+				FileOutputStream outPutFile = new FileOutputStream(new File("Orders.xls"));
+				
+				HSSFSheet sheet = workbook.getSheet("Orders");
+				int lastRowNum = sheet.getLastRowNum();
+				
+				Row newRow = sheet.createRow(lastRowNum + 1);
+				Cell cell1 = newRow.createCell(0);
+				cell1.setCellValue(orderDTO.getOrderID());
 
-		    Cell cell2 = newRow.createCell(1); // Create cell at column 1
-		    cell2.setCellValue("New Data 2");
-		    
-		    Cell cell3 = newRow.createCell(2); // Create cell at column 1
-		    cell2.setCellValue("New Data 3");
-		    
-		    workbook.write(outPutFile);
+				Cell cell2 = newRow.createCell(1);
+				cell2.setCellValue(orderDTO.getOrderName());
+				
+				Cell cell3 = newRow.createCell(2);
+				cell3.setCellValue(orderDTO.getDateTime());
+				
+				workbook.write(outPutFile);
+			}
 		    
 		} catch (IOException e) {
 			e.printStackTrace();
+			return "Un Succfull update of file with order id : " + orderDTO.getOrderID() ;
 		}
 		
-		return null;
+		return "Succfully updated file with order id : " + orderDTO.getOrderID();
 	}
 	
 }
