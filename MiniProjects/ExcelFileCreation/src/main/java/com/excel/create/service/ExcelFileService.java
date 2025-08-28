@@ -49,11 +49,11 @@ public class ExcelFileService implements ExcelFileServiceInterface{
 
 	@Override
 	public String insertRecord(OrderDTO orderDTO) {
-		
+		String networkFilePath = "\\\\ASHWINS\\SharedFolder\\Orders.xls";
 		try {
-			FileInputStream inputFile = new FileInputStream(new File("Orders.xls"));
+			FileInputStream inputFile = new FileInputStream(new File(networkFilePath));
 			try (HSSFWorkbook workbook = new HSSFWorkbook(inputFile)) {
-				FileOutputStream outPutFile = new FileOutputStream(new File("Orders.xls"));
+				FileOutputStream outPutFile = new FileOutputStream(new File(networkFilePath));
 				
 				HSSFSheet sheet = workbook.getSheet("Orders");
 				int lastRowNum = sheet.getLastRowNum();
