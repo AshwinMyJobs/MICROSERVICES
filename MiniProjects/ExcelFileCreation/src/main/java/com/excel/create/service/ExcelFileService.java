@@ -69,6 +69,8 @@ public class ExcelFileService implements ExcelFileServiceInterface{
 				cell3.setCellValue(orderDTO.getDateTime());
 				
 				workbook.write(outPutFile);
+				inputFile.close();
+				outPutFile.close();
 			}
 		    
 		} catch (IOException e) {
