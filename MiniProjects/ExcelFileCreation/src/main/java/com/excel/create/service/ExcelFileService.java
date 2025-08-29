@@ -14,6 +14,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.excel.create.dto.OrderDTO;
@@ -49,9 +50,28 @@ public class ExcelFileService implements ExcelFileServiceInterface{
 
 	}
 
+	@Value("${app.shared.file.location.cpu}")
+	private String cpuFileLocation;
+	
+	@Value("${app.shared.file.location.laptop}")
+	private String laptopFileLocation;
+	
+	String networkFilePath = null;
+	
+	
 	@Override
 	public String insertRecord(OrderDTO orderDTO) {
-		String networkFilePath = "\\\\ASHWINS\\SharedFolder\\Orders.xls";
+		
+		UUID orderUUID = Utility.getUUID();
+		
+		if(Utility.isUUIDEvenOrOdd(orderUUID).equals("Even")) {
+			networkFilePath = cpuFileLocation;
+			System.out.println("File location is : " + networkFilePath);
+		} else {
+			networkFilePath = laptopFileLocation;
+			System.out.println("File location is : " + networkFilePath);
+		}
+		
 		try {
 			FileInputStream inputFile = new FileInputStream(new File(networkFilePath));
 			try (HSSFWorkbook workbook = new HSSFWorkbook(inputFile)) {
