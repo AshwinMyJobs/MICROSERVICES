@@ -23,6 +23,14 @@ import com.excel.create.util.Utility;
 @Service
 public class ExcelFileService implements ExcelFileServiceInterface {
 
+	@Value("${app.shared.file.location.cpu}")
+	private String cpuFileLocation;
+
+	@Value("${app.shared.file.location.laptop}")
+	private String laptopFileLocation;
+
+	String networkFilePath = null;
+	
 	@Override
 	public void createExcelFile() throws FileNotFoundException, IOException {
 
@@ -49,14 +57,6 @@ public class ExcelFileService implements ExcelFileServiceInterface {
 		fileOut.close();
 
 	}
-
-	@Value("${app.shared.file.location.cpu}")
-	private String cpuFileLocation;
-
-	@Value("${app.shared.file.location.laptop}")
-	private String laptopFileLocation;
-
-	String networkFilePath = null;
 
 	@Override
 	public String insertRecord(OrderDTO orderDTO) {
