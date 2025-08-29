@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.UUID;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -16,6 +17,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Service;
 
 import com.excel.create.dto.OrderDTO;
+import com.excel.create.util.Utility;
 
 @Service
 public class ExcelFileService implements ExcelFileServiceInterface{
@@ -60,8 +62,9 @@ public class ExcelFileService implements ExcelFileServiceInterface{
 				
 				Row newRow = sheet.createRow(lastRowNum + 1);
 				Cell cell1 = newRow.createCell(0);
+				orderDTO.setOrderID(Utility.getUUID().toString());
 				cell1.setCellValue(orderDTO.getOrderID());
-
+				
 				Cell cell2 = newRow.createCell(1);
 				cell2.setCellValue(orderDTO.getOrderName());
 				

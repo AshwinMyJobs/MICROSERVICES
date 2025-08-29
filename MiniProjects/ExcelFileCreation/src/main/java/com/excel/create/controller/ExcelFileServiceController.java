@@ -34,7 +34,6 @@ public class ExcelFileServiceController {
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String insertRecord(@RequestBody OrderDTO orderDTO) {
 		
-		orderDTO.setOrderID(UUID.randomUUID().toString());
 		orderDTO.setDateTime(LocalDateTime.now().toString());
 		System.out.println(orderDTO.getOrderID() + " " + orderDTO.getOrderName() + " " + orderDTO.getDateTime());
 		return excelFileServiceInterface.insertRecord(orderDTO);
