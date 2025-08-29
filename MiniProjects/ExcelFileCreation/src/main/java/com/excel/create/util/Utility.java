@@ -13,10 +13,6 @@ public class Utility {
 	}
 	
 	public static UUID getUUID() {
-		UUID uuid =  UUID.randomUUID();
-		
-		System.out.println("Is uuid even or odd : " + isUUIDEvenOrOdd(uuid));
-		
-		return uuid;
+		return UUID.randomUUID();
 	}
 }

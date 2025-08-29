@@ -14,6 +14,8 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,8 @@ import com.excel.create.util.Utility;
 
 @Service
 public class ExcelFileService implements ExcelFileServiceInterface {
+	
+	Logger logger = LoggerFactory.getLogger(ExcelFileService.class);
 
 	@Override
 	public void createExcelFile() throws FileNotFoundException, IOException {
@@ -96,11 +100,10 @@ public class ExcelFileService implements ExcelFileServiceInterface {
 			}
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.info(e.getLocalizedMessage());
 			return "Un Succfull update of file with order id : " + orderDTO.getOrderID();
 		}
-
+		logger.info("Succfully updated file with order id : {} ", orderDTO.getOrderID());
 		return "Succfully updated file with order id : " + orderDTO.getOrderID();
 	}
-
 }
