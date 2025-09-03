@@ -43,4 +43,10 @@ public class ProductController {
 		
 		return productService.listAllProducts();
 	}
+	
+	@GetMapping
+	public String helloMethod() {
+		return "Hi there , wassup !!!!!!!!";
+	}
+	
 }

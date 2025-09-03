@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: product-catalogue-k8s
+spec:
+ replicas: 2
+ selector:
+  matchLabels:
+   app: product-catalogue-k8s
+ template:
+  metadata:
+   labels:
+    app: product-catalogue-k8s
+  spec:
+   containers:
+    - name: product-catalogue-k8s
+      image: myjobsash/product-catalogue:latest
+      imagePullPolicy: IfNotPresent
+      ports:
+       - containerPort: 8080
