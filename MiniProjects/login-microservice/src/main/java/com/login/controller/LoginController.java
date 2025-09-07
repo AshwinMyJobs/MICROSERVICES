@@ -46,6 +46,7 @@ public class LoginController {
 	@PostMapping(value = "/register")
 	public Message addNewUser(@RequestBody UserInfo userInfo) {
 		System.out.println(userInfo.toString());
+		if(userInfo.getRoles()==null) userInfo.setRoles("USER");
 		return loginService.addUser(userInfo);
 	}
 
@@ -56,14 +57,17 @@ public class LoginController {
 	}
 
 	@PostMapping("/authenticate")
-	public ResponseEntity<Message> authenticateAndGetToken(@RequestBody UserInfo userInfo) {
+	public String authenticateAndGetToken(@RequestBody UserInfo userInfo) {
+		System.out.println(userInfo.toString());
 		try {
 			Authentication authentication = authenticationManager
 					.authenticate(new UsernamePasswordAuthenticationToken(userInfo.getName(), userInfo.getPassword()));
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 		} catch (Exception e) {
-			return new ResponseEntity<Message>((new Message("Invalid Username or Passsword")), HttpStatus.OK);
+			//return new ResponseEntity<Message>((new Message("Invalid Username or Passsword")), HttpStatus.OK);
+			return new String("Invalid Username or Passsword");
 		}
-		return new ResponseEntity<Message>((new Message(jwtService.generateToken(userInfo.getName()))), HttpStatus.OK);
+		//return new ResponseEntity<Message>((new Message(jwtService.generateToken(userInfo.getName()))), HttpStatus.OK);
+		return jwtService.generateToken(userInfo.getName());
 	}
 }

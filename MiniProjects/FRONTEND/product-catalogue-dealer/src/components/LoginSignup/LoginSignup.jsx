@@ -37,21 +37,34 @@ const LoginSignup = () => {
     console.log("handleSignUpSubmit function is called.......");
     console.log("Name entered is : " + name);
     try {
-      //const response = await axios.get('http://localhost:8080/login/hello');
       const response = await axios.post('http://localhost:8080/login/register', JSON.stringify({ name, email, password }), {
         headers: {
           'Content-Type': 'application/json'
         }
       });
-      console.log(name + email + password)
-      // fetch('http://localhost:8080/login/register', { method: 'POST',headers: {
-      //   'Content-Type': 'application/json',
-      // }, body: JSON.stringify({ name, email, password }) });
-      //setResponseMessage(`Success: ${JSON.stringify(response.data)}`);
+      console.log(response.data)
     } catch (error) {
       setResponseMessage(`Error: ${error.message}`);
     }
   };
+
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    console.log("handleLoginSubmit function is called.......");
+    console.log("Name entered is : " + name);
+    console.log("Password entered is : " + password);
+    try {
+      const response = await axios.post('http://localhost:8080/login/authenticate', JSON.stringify({ name, password }), {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log("Response : " + JSON.stringify(response.data));
+    } catch (error) {
+      setResponseMessage(`Error: ${error.message}`);
+    }
+  };
+
 
   return (
     <div className='container'>
@@ -66,33 +79,38 @@ const LoginSignup = () => {
         </div>
         <div className='inputs'>
           {action === "Login" ?
-            <></>
+            <>
+              <div className='input'>
+                <input type="text" placeholder='Name' id='name' onChange={handleNameChange} />
+              </div>
+              <div className='input'>
+                <input type="password" placeholder='Password' id='password' onChange={handlePasswordChange} />
+              </div>
+            </>
             :
-            <div className='input'>
-              <img src="" alt="" />
-              <input type="text" placeholder='Name' id='name' onChange={handleNameChange} />
-            </div>
+            <>
+              <div className='input'>
+                <input type="text" placeholder='Name' id='name' onChange={handleNameChange} />
+              </div>
+              <div className='input'>
+                <input type="email" placeholder='Email Id' id='email' onChange={handleEmailChange} />
+              </div>
+              <div className='input'>
+                <input type="password" placeholder='Password' id='password' onChange={handlePasswordChange} />
+              </div>
+            </>
           }
-          <div className='input'>
-            <img src="" alt="" />
-            <input type="email" placeholder='Email Id' id='email' onChange={handleEmailChange} />
-          </div>
-          <div className='input'>
-            <img src="" alt="" />
-            <input type="password" placeholder='Password' id='password' onChange={handlePasswordChange} />
-          </div>
+
         </div>
         {action === "Sign Up" ?
           <><div><button type='submit' onClick={handleSignUpSubmit}>Submit</button></div></>
           :
           <>
             <div className="forgot-password">Lost Password? <span>Click Here!</span></div>
-            <div><button type='submit'>Submit</button></div>
+            <div><button type='submit' onClick={handleLoginSubmit}>Submit</button></div>
           </>
 
         }
-
-
       </form>
     </div>
   )
