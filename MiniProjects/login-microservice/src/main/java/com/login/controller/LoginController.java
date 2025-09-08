@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -43,6 +44,13 @@ public class LoginController {
 		return new UserInfo();
 	}
 
+	@GetMapping("/helloAuthorized")
+	@PreAuthorize("hasAuthority('USER')")
+	public UserInfo sayHelloAuthorizedMethod() {
+		System.out.println("sayHelloAuthorizedMethod is called ..............");
+		return new UserInfo();
+	}
+	
 	@PostMapping(value = "/register")
 	public Message addNewUser(@RequestBody UserInfo userInfo) {
 		System.out.println(userInfo.toString());

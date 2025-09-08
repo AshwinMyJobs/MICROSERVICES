@@ -103,13 +103,18 @@ const LoginSignup = () => {
 
         </div>
         {action === "Sign Up" ?
-          <><div><button type='submit' onClick={handleSignUpSubmit}>Submit</button></div></>
+          <>
+            <div align='center'>
+              <button type='submit' onClick={handleSignUpSubmit}>Submit</button>
+            </div>
+          </>
           :
           <>
-            <div className="forgot-password">Lost Password? <span>Click Here!</span></div>
-            <div><button type='submit' onClick={handleLoginSubmit}>Submit</button></div>
+              <div className="forgot-password">Lost Password? <span>Click Here!</span></div>
+              <div align='center'>
+                <button type='submit' onClick={handleLoginSubmit}>Submit</button>
+              </div>
           </>
-
         }
       </form>
     </div>
