@@ -7,29 +7,25 @@ import axios from 'axios';
 const LoginSignup = () => {
 
   const [responseMessage, setResponseMessage] = useState('');
-  const [action, setAction] = useState("Sign Up");
+  const [action, setAction] = useState("Login");
 
   const [name, setName] = useState('');
   const handleNameChange = (e) => {
-    //console.log("Onchange event triggered ......" + e.target.value);
     setName(e.target.value);
   }
 
   const [email, setEmail] = useState('');
   const handleEmailChange = (e) => {
-    //console.log("Onchange event triggered ......" + e.target.value);
     setEmail(e.target.value);
   }
 
   const [password, setPassword] = useState('');
   const handlePasswordChange = (e) => {
-    //console.log("Onchange event triggered ......" + e.target.value);
     setPassword(e.target.value);
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Handled the submit function .....");
   }
 
   const handleSignUpSubmit = async (e) => {
@@ -59,10 +55,29 @@ const LoginSignup = () => {
           'Content-Type': 'application/json'
         }
       });
-      console.log("Response : " + JSON.stringify(response.data));
+      localStorage.setItem('jwtToken', response.data);
+      if (JSON.stringify(response.data) === JSON.stringify("Invalid Username or Passsword"))
+        window.location.href = '/';
+      else
+        window.location.href = '/useractions';
     } catch (error) {
       setResponseMessage(`Error: ${error.message}`);
     }
+
+    // console.log("Now calliing prequthorize method with jwt");
+    // try {
+    //   const response = await axios.get('http://localhost:8080/login/helloAuthorized', {
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTc1NzMwOTU0MywiZXhwIjoxNzU3MzExMzQzfQ.-13n_ycNXKh3pCn0wmZo6QXZSiNRfRsYG5KvdT_Va60`
+    //     }
+    //   });
+    //   console.log("Response : " + JSON.stringify(response.data));
+
+    // } catch (error) {
+    //   setResponseMessage(`Error: ${error.message}`);
+    //   window.location.href = '/';
+    // }
   };
 
 
@@ -110,10 +125,10 @@ const LoginSignup = () => {
           </>
           :
           <>
-              <div className="forgot-password">Lost Password? <span>Click Here!</span></div>
-              <div align='center'>
-                <button type='submit' onClick={handleLoginSubmit}>Submit</button>
-              </div>
+            <div className="forgot-password">Lost Password? <span>Click Here!</span></div>
+            <div align='center'>
+              <button type='submit' onClick={handleLoginSubmit}>Submit</button>
+            </div>
           </>
         }
       </form>

@@ -1,4 +1,5 @@
 import './App.css';
+import DealerAddProduct from './components/DealerComponents/DealerAddProduct';
 import LoginSignup from './components/LoginSignup/LoginSignup';
 import AddProduct from './components/ProductsAdd/AddProduct';
 // import { Routes, Route, Link } from 'react-router-dom';
@@ -16,13 +17,13 @@ const Home = () => {
     );
 };
 // About Page Component 
-const About = () => (
+const UserActions = () => (
     <div>
-        <h2>About Page</h2>
+        <h2>UserActions Page</h2>
         <nav>
             <ul>
                 <li>
-                    <Link to="team">Our Team</Link>
+                    <Link to="addproduct">Add Product</Link>
                 </li>
                 <li>
                     <Link to="company">Our Company</Link> 
@@ -35,7 +36,7 @@ const About = () => (
 
 // Components for other pages
 const Contact = () => <h2>Contact Page</h2>;
-const Team = () => <h2>Team Page</h2>;
+const AddProcuct = () => <h2>AddProcuct Page</h2>;
 const Company = () => <h2>Company Page</h2>;
 
 function App() {
@@ -47,7 +48,7 @@ function App() {
                         <Link to="/">Home</Link>
                     </li>
                     <li>
-                        <Link to="/about">About</Link>
+                        <Link to="/useractions">UserActions</Link>
                     </li>
                     <li>
                         <Link to="/contact">Contact</Link>
@@ -57,8 +58,8 @@ function App() {
             {/*Implementing Routes for respective Path */}
             <Routes>
                 <Route path="/" element={<LoginSignup />} />
-                <Route path="/about" element={<About />}>
-                <Route path="team" element={<Team />} />
+                <Route path="/useractions" element={<UserActions />}>
+                <Route path="addproduct" element={<DealerAddProduct />} />
                 <Route path="company" element={<Company />} />
                 </Route>
                 <Route path="/contact" element={<Contact />} />
