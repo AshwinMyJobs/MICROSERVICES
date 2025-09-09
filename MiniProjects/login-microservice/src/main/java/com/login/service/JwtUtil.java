@@ -19,6 +19,10 @@ public class JwtUtil {
     @Value("${jwt.secret}")
     private String secret;
 
+    public JwtUtil() {
+		// TODO Auto-generated constructor stub
+	}
+    
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }

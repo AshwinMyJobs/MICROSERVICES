@@ -50,7 +50,7 @@ public class SecurityConfig implements WebMvcConfigurer {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http.csrf().disable().authorizeHttpRequests()
-				.requestMatchers("/login/register", "/login/authenticate", "/login/hello", "/login/all").permitAll()
+				.requestMatchers("/login/register", "/login/authenticate", "/login/hello", "/login/all","/jwt/validate").permitAll()
 				.and()
 				.authorizeHttpRequests().requestMatchers("/login/**").authenticated()
 				.and()
