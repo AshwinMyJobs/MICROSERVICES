@@ -1,6 +1,7 @@
 import './App.css';
 import DealerAddProduct from './components/DealerComponents/DealerAddProduct';
 import LoginSignup from './components/LoginSignup/LoginSignup';
+import MyComponent from './components/DealerComponents/MyComponent';
 import AddProduct from './components/ProductsAdd/AddProduct';
 // import { Routes, Route, Link } from 'react-router-dom';
 
@@ -60,7 +61,7 @@ function App() {
                 <Route path="/" element={<LoginSignup />} />
                 <Route path="/useractions" element={<UserActions />}>
                 <Route path="addproduct" element={<DealerAddProduct />} />
-                <Route path="company" element={<Company />} />
+                <Route path="company" element={<MyComponent />} />
                 </Route>
                 <Route path="/contact" element={<Contact />} />
             </Routes>

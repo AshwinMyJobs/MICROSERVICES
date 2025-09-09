@@ -26,7 +26,7 @@ import com.login.service.LoginService;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/api/login")
 public class LoginController {
 
 	@Autowired

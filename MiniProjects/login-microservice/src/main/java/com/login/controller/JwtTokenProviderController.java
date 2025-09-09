@@ -17,7 +17,7 @@ import com.login.service.JwtUtil;
 import io.jsonwebtoken.Jwts;
 
 @RestController
-@RequestMapping("/jwt")
+@RequestMapping("/api/jwt")
 public class JwtTokenProviderController {
 	
 	@Autowired
@@ -26,7 +26,7 @@ public class JwtTokenProviderController {
 	@Autowired
 	UserDetailsService userDetailsService;
 		
-	@PostMapping("validate")
+	@PostMapping("/validate")
 	public Message validateToken(@RequestBody JwtToken jwtToken) throws Exception{
 		
 		try {

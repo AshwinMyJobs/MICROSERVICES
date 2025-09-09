@@ -33,7 +33,7 @@ const LoginSignup = () => {
     console.log("handleSignUpSubmit function is called.......");
     console.log("Name entered is : " + name);
     try {
-      const response = await axios.post('http://localhost:8080/login/register', JSON.stringify({ name, email, password }), {
+      const response = await axios.post('http://localhost:8080/api/login/register', JSON.stringify({ name, email, password }), {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -50,7 +50,7 @@ const LoginSignup = () => {
     console.log("Name entered is : " + name);
     console.log("Password entered is : " + password);
     try {
-      const response = await axios.post('http://localhost:8080/login/authenticate', JSON.stringify({ name, password }), {
+      const response = await axios.post('http://localhost:8080/api/login/authenticate', JSON.stringify({ name, password }), {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -63,21 +63,6 @@ const LoginSignup = () => {
     } catch (error) {
       setResponseMessage(`Error: ${error.message}`);
     }
-
-    // console.log("Now calliing prequthorize method with jwt");
-    // try {
-    //   const response = await axios.get('http://localhost:8080/login/helloAuthorized', {
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTc1NzMwOTU0MywiZXhwIjoxNzU3MzExMzQzfQ.-13n_ycNXKh3pCn0wmZo6QXZSiNRfRsYG5KvdT_Va60`
-    //     }
-    //   });
-    //   console.log("Response : " + JSON.stringify(response.data));
-
-    // } catch (error) {
-    //   setResponseMessage(`Error: ${error.message}`);
-    //   window.location.href = '/';
-    // }
   };
 
 
